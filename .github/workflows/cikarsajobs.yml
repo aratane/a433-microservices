@@ -25,10 +25,10 @@ jobs:
       - name: build-and-push-image
         run: |
           # Lakukan proses build image
-          docker build -t NAMA_PENGGUNA/karsajobs:latest .
+          docker build -t aratakun/karsajobs:latest .
           
           # Login ke Docker Hub
-          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username NAMA_PENGGUNA --password-stdin
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username aratakun --password-stdin
 
           # Push image ke Docker Hub
-          docker push NAMA_PENGGUNA/karsajobs:latest
+          docker push aratakun/karsajobs:latest
