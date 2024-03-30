@@ -1,0 +1,34 @@
+name: CI karsajobs
+
+on:
+  push:
+    branches:
+      - karsajobs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: lint-dockerfile
+        run: |
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64
+          chmod +x /bin/hadolint
+          hadolint Dockerfile
+
+      - name: test-app
+        run: go test -v -short --count=1 $(go list ./...)
+
+      - name: build-and-push-image
+        run: |
+          # Lakukan proses build image
+          docker build -t NAMA_PENGGUNA/karsajobs:latest .
+          
+          # Login ke Docker Hub
+          echo "${{ secrets.DOCKER_HUB_TOKEN }}" | docker login --username NAMA_PENGGUNA --password-stdin
+
+          # Push image ke Docker Hub
+          docker push NAMA_PENGGUNA/karsajobs:latest
