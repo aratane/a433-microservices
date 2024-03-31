@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variabel
-IMAGE_NAME="shipping-service"
+IMAGE_NAME="order-service"
 TAG="latest"
 GITHUB_TOKEN="#"
 
